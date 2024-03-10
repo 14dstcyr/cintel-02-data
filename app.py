@@ -25,4 +25,14 @@ penguins_df = palmerpenguins.load_penguins()
 # Define User Interface (ul)
 # --------------------------
 
-ui.page_opts(titel="Penguin Data - St.Cyr", fillable=True)
+ui.page_opts(title="St_Cyr Penguin Data", fillable=True)
+with ui.layout_columns():
+
+    @render_plotly
+    def plot1():
+        return px.histogram(px.data.tips(), y="tip")
+
+    @render_plotly
+    def plot2():
+        return px.histogram(px.data.tips(), y="total_bill")
+        
