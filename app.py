@@ -48,29 +48,27 @@ with ui.sidebar(open="open"):
     ui.hr()
     
     # Use ui.a() to add a hyperlink to the sidebar
+    ui.a("Github", href="https://github.com/14dstcyr/cintel-02-data", target="blank")
+    
+# Create tables and plots displaying all data
+
+# Data Table 
+
+with ui.layout_columns(col_widths=(10,20)):
+    with ui.card():
+        "Penguin_Data"
+
+    ui.h2("Penguin Data")
+
+    @render.data_frame
+    def Penguin_Data_table():
+        return penguins_df
+        
 
 
-# --------------------------
-# Get the Data
-# --------------------------
 
-# ALWAYS familiarize yourself with the dataset you are working with first.
-# Column names for the penguins dataset include:
-# - species: penguin species (Chinstrap, Adelie, or Gentoo)
-# - island: island name (Dream, Torgersen, or Biscoe) in the Palmer Archipelago
-# - bill_length_mm: length of the bill in millimeters
-# - bill_depth_mm: depth of the bill in millimeters
-#- flipper_length_mm: length of the flipper in millimeters
-# - body_mass_g: body mass in grams
-# - sex: MALE or FEMALE
+               
 
-# Load the dataset into a pandas data frame.
-# Use the built-in function to load the Palmer Penguins dataset.
-penguins_df = palmerpenguins.load_penguins()
-
-# --------------------------
-# Define User Interface (ul)
-# --------------------------
 
 ui.page_opts(title="St_Cyr Penguin Data", fillable=True)
 with ui.layout_columns():
