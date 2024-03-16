@@ -76,16 +76,16 @@ with ui.layout_columns(col_widths=(2, 6)):
     with ui.card(full_screen=True): "Plotly Penguin Histogram"
 
     @render_plotly
-    def plot1():
-        return px.histogram(px.data.bill_length_mm(), y="species")
+    def plotly.histogram():
+        return px.histogram(penguins_df, x="bill_length_mm", color="species")
 
 ## Seaborn
 with ui.layout_columns(col_widths=(2, 6)):
     with ui.card(full_screen=True): "Seaborn Penguin Histogram"
 
-    @render.plot(alt="Seaborn Histogram", full_page="True")
+    @render.plot(alt="Seaborn Histogram")
     def seaborn_histogram():
-        histplot = sns.hitplot(data=penguins_df, x="bill_length_mm", bins=input.seaborn_bin_count())
+        histplot = sns.histplot(data=penguins_df, x="bill_length_mm", bins=input("seaborn_bin_count))
         histplot.set_title("Penguin Data")
         histplot.set_xlabel("Bill Length")
         histplot.set_ylabel("Count")
