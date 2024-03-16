@@ -69,6 +69,29 @@ with ui.layout_columns(col_widths=(4,  8)):
     def penguin_data():
         return render.DataGrid(penguins_df, row_selection_mode="multiple")
 
+# Create Histograms 
+        
+with ui.layout_columns(col_widths=(2, 6)):
+    with ui.card(full_screen=True): "Plotly Penguin Histogram"
+
+    @render_plotly
+    def plot1():
+        return px.histogram(px.data.bill_length_mm(), y="species")
+
+with ui.layout_columns(col_widths=(2, 6)):
+    with ui.card(full_screen=True): "Seaborn Penguin Histogram"
+
+    @render.plot(alt="Seaborn Histogram", full_page="True")
+    def seaborn_histogram():
+        histplot = sns.hitplot(data=penguins_df, x="bill_length_mm", bins=input.seaborn_bin_count())
+        histplot.set_title("Penguin Data")
+        histplot.set_xlabel("Bill Length")
+        histplot.set_ylabel("Count")
+        return histplot
+
+
+
+
 
         
 
