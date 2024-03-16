@@ -52,17 +52,24 @@ with ui.sidebar(open="open"):
     
 # Create tables and plots displaying all data
 
-# Data Table 
+# Create a Data Table and Grid
 
-with ui.layout_columns(col_widths=(10,20)):
-    with ui.card():
-        "Penguin_Data"
-
-    ui.h2("Penguin Data")
+with ui.layout_columns(col_widths=(4,  8)):  
+    with ui.card():  
+        "Penguiin Table"
 
     @render.data_frame
-    def Penguin_Data_table():
+    def render_Penguuin_Table():
         return penguins_df
+
+with ui.layout_columns(col_widths=(4,  8)):
+    with ui.card(full_screen=True): "Penguins Grid"
+
+    @render.data_frame
+    def penguin_data():
+        return render.DataGrid(penguins_df, row_selection_mode="multiple")
+
+
         
 
 
