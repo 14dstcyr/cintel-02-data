@@ -52,7 +52,7 @@ with ui.sidebar(open="open"):
     
 # Create tables and plots displaying all data
 
-# Create a Data Table and Grid
+## Data Table and Grid
 
 with ui.layout_columns(col_widths=(4,  8)):  
     with ui.card():  
@@ -70,7 +70,8 @@ with ui.layout_columns(col_widths=(4,  8)):
         return render.DataGrid(penguins_df, row_selection_mode="multiple")
 
 # Create Histograms 
-        
+
+## Plotly        
 with ui.layout_columns(col_widths=(2, 6)):
     with ui.card(full_screen=True): "Plotly Penguin Histogram"
 
@@ -78,6 +79,7 @@ with ui.layout_columns(col_widths=(2, 6)):
     def plot1():
         return px.histogram(px.data.bill_length_mm(), y="species")
 
+## Seaborn
 with ui.layout_columns(col_widths=(2, 6)):
     with ui.card(full_screen=True): "Seaborn Penguin Histogram"
 
@@ -89,7 +91,20 @@ with ui.layout_columns(col_widths=(2, 6)):
         histplot.set_ylabel("Count")
         return histplot
 
+## Plotly Scatterplot
+with ui.layout_columns(col_widths=(2, 6)):
+    with ui.card(full_screen=True): "Plotly Scatterplot"
 
+    @render_plotly
+    def plotly_scatterplot():
+        return px.scatter(penguins_df, x="bill_length_mm",
+                          y="body_mass_g",
+                          color="species",
+                          title="Penguin Scatterplot",
+                          labels={"bill_length_mm": "Bill Length mm",
+                                  "body_mass_g": "Body Mass g"},
+                          size_max=10,)
+        
 
 
 
