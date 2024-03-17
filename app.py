@@ -11,15 +11,6 @@ penguins_df = palmerpenguins.load_penguins()
 
 # Name of Project Page
 ui.page_opts(title="St_Cyr Penguin Data", fillable=True)
-with ui.layout_columns():
-
-    @render_plotly
-    def plot1():
-        return px.histogram(px.data.tips(), y="tip")
-
-    @render_plotly
-    def plot2():
-        return px.histogram(px.data.tips(), y="total_bill")
 
 # Add a sidebar
 with ui.sidebar(open="open"):  
@@ -50,79 +41,57 @@ with ui.sidebar(open="open"):
     # Use ui.a() to add a hyperlink to the sidebar
     ui.a("Github", href="https://github.com/14dstcyr/cintel-02-data", target="blank")
     
+    
 # Create tables and plots displaying all data
-
 ## Data Table and Grid
+with ui.layout_columns():  
+    with ui.card(full_screen=True):  
+        ui.h2("Penguins Table")        
+        @render.data_frame
+        def Penguins_Table():
+                return render.DataTable(penguins_df)
+                    
+    with ui.card(full_screen=True):
+        ui.h2("Penguins Grid")
+        
+        @render.data_frame
+        def render_Penguin_Grid():
+            return render.DataGrid(penguins_df)
 
-with ui.layout_columns(col_widths=(4,  8)):  
-    with ui.card():  
-        "Penguiin Table"
+# Create Histograms and Scatterplot
 
-    @render.data_frame
-    def render_Penguuin_Table():
-        return penguins_df
+with ui.layout_columns(col_widths=(5, 10)):
+    with ui.card(full_screen=True):
+        ui.h4("Penguin Histogram")
 
-with ui.layout_columns(col_widths=(4,  8)):
-    with ui.card(full_screen=True): "Penguins Grid"
+        @render_plotly
+        def plotly_histogram():
+            return px.histogram(penguins_df, x="species", color="species")
 
-    @render.data_frame
-    def penguin_data():
-        return render.DataGrid(penguins_df, row_selection_mode="multiple")
 
-# Create Histograms 
+with ui.accordion():
+    with ui.accordion_panel(title="Seaborn Histogram", full_screen=True):
+        @render.plot(alt="Seaborn Histogram")
+        def seaborn_histogram():
+            bins = input.seaborn_bin_count()
+            ax = sns.histplot(data=penguins_df, x="body_mass_g", bins=bins, hue="species")
+            ax.set_title("Palmer Penguins")
+            ax.set_xlabel("Mass")
+            ax.set_ylabel("Count")
+            return ax
 
-## Plotly        
-with ui.layout_columns(col_widths=(2, 6)):
-    with ui.card(full_screen=True): "Plotly Penguin Histogram"
-
-    @render_plotly
-    def plotly.histogram():
-        return px.histogram(penguins_df, x="bill_length_mm", color="species")
-
-## Seaborn
-with ui.layout_columns(col_widths=(2, 6)):
-    with ui.card(full_screen=True): "Seaborn Penguin Histogram"
-
-    @render.plot(alt="Seaborn Histogram")
-    def seaborn_histogram():
-        histplot = sns.histplot(data=penguins_df, x="bill_length_mm", bins=input("seaborn_bin_count))
-        histplot.set_title("Penguin Data")
-        histplot.set_xlabel("Bill Length")
-        histplot.set_ylabel("Count")
-        return histplot
 
 ## Plotly Scatterplot
 with ui.layout_columns(col_widths=(2, 6)):
-    with ui.card(full_screen=True): "Plotly Scatterplot"
-
-    @render_plotly
-    def plotly_scatterplot():
-        return px.scatter(penguins_df, x="bill_length_mm",
+    with ui.card(full_screen=True):
+        ui.card_header("Plotly Scatterplot")
+        @render_plotly
+        def plotly_scatterplot():
+            return px.scatter(penguins_df, x="bill_length_mm",
                           y="body_mass_g",
                           color="species",
                           title="Penguin Scatterplot",
                           labels={"bill_length_mm": "Bill Length mm",
                                   "body_mass_g": "Body Mass g"},
-                          size_max=10,)
-        
+                          size_max=20,)
 
-
-
-        
-
-
-
-               
-
-
-ui.page_opts(title="St_Cyr Penguin Data", fillable=True)
-with ui.layout_columns():
-
-    @render_plotly
-    def plot1():
-        return px.histogram(px.data.tips(), y="tip")
-
-    @render_plotly
-    def plot2():
-        return px.histogram(px.data.tips(), y="total_bill")
-        
