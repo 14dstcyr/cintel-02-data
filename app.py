@@ -69,15 +69,16 @@ with ui.layout_columns(col_widths=(5, 10)):
             return px.histogram(penguins_df, x="species", color="species")
 
 
-with ui.card(full_screen=True):
-    ui.card_header("Seaborn Histogram")
-    @render.plot(alt="Seaborn Histogram")
-    def seaborn_histogram():
-        histplot = sns.histplot(data=penguins_df, x="body_mass_g", bins=input.seaborn_bin_count())
-        histplot.set_title("Penguins")
-        histplot.set_xlabel("Mass")
-        histplot.set_ylabel("Count")
-        return histplot
+with ui.layout_columns(col_widths=(5, 10)):
+    with ui.card(full_screen=True):
+        ui.card_header("Seaborn Histogram")
+        @render.plot(alt="Seaborn Histogram")
+        def seaborn_histogram():
+            histplot = sns.histplot(data=penguins_df, x="body_mass_g", bins=input.seaborn_bin_count())
+            histplot.set_title("Penguins")
+            histplot.set_xlabel("Mass")
+            histplot.set_ylabel("Count")
+            return histplot
 
 
 ## Plotly Scatterplot
@@ -93,3 +94,6 @@ with ui.layout_columns(col_widths=(2, 6)):
                           labels={"bill_length_mm": "Bill Length mm",
                                   "body_mass_g": "Body Mass g"},
                           size_max=20,)
+
+
+
