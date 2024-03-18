@@ -45,13 +45,13 @@ with ui.sidebar(open="open"):
 # Create tables and plots displaying all data
 ## Data Table and Grid
 with ui.layout_columns():  
-    with ui.card():  
+    with ui.card(full_screen=False):  
         ui.h2("Penguins Table")        
         @render.data_frame
         def Penguins_Table():
                 return render.DataTable(penguins_df)
                     
-    with ui.card():
+    with ui.card(full_screen=False):
         ui.h2("Penguins Grid")
         
         @render.data_frame
