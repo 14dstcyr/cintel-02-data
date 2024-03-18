@@ -10,7 +10,7 @@ from shiny import reactive, render, req
 penguins_df = palmerpenguins.load_penguins()
 
 # Name of Project Page
-ui.page_opts(title="St_Cyr Penguin Data", fillable=True)
+ui.page_opts(title="St_Cyr Penguin Data", fillable=False)
 
 # Add a sidebar
 with ui.sidebar(open="open"):  
